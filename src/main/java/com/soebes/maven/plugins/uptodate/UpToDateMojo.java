@@ -45,6 +45,7 @@ public class UpToDateMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        mavenSession.getRequest().getSelectedProjects();
     }
 
 }
