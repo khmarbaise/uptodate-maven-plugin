@@ -42,8 +42,8 @@ public class UpToDateMojo
 
     @Component
     private RepositorySystem repoSystem;
-
-    @Component
+    
+    @Parameter(defaultValue="${repositorySystemSession}")
     private RepositorySystemSession repositorySystemSession;
     
 

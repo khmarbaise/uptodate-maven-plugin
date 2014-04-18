@@ -39,7 +39,7 @@
           <execution>
             <id>HIER</id>
             <goals>
-              <goal>artifactor</goal>
+              <goal>verify</goal>
             </goals>
             <phase>package</phase>
           </execution>
