@@ -134,6 +134,12 @@
 
       <dependency>
         <groupId>org.apache.maven</groupId>
+        <artifactId>maven-compat</artifactId>
+        <version>${maven.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven</groupId>
         <artifactId>maven-core</artifactId>
         <version>${maven.version}</version>
       </dependency>
@@ -346,7 +352,6 @@
       <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
-
 
     <dependency>
       <groupId>org.eclipse.aether</groupId>
