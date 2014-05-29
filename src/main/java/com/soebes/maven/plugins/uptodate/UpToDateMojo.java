@@ -1,5 +1,7 @@
 package com.soebes.maven.plugins.uptodate;
 
+import java.io.File;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
@@ -10,24 +12,15 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
-import org.eclipse.aether.DefaultRepositorySystemSession;
-import org.eclipse.aether.RepositorySystem;
-import org.eclipse.aether.RepositorySystemSession;
-import org.eclipse.aether.artifact.Artifact;
-import org.eclipse.aether.artifact.DefaultArtifact;
-import org.eclipse.aether.connector.basic.BasicRepositoryConnectorFactory;
-import org.eclipse.aether.impl.DefaultServiceLocator;
-import org.eclipse.aether.repository.LocalRepository;
-import org.eclipse.aether.repository.RemoteRepository;
-import org.eclipse.aether.resolution.VersionRangeRequest;
-import org.eclipse.aether.resolution.VersionRangeResolutionException;
-import org.eclipse.aether.resolution.VersionRangeResult;
-import org.eclipse.aether.spi.connector.RepositoryConnectorFactory;
-import org.eclipse.aether.spi.connector.transport.TransporterFactory;
-import org.eclipse.aether.transport.file.FileTransporterFactory;
-import org.eclipse.aether.transport.http.HttpTransporterFactory;
-import org.eclipse.aether.version.Version;
+import org.sonatype.aether.RepositorySystem;
+import org.sonatype.aether.RepositorySystemSession;
+import org.sonatype.aether.artifact.Artifact;
+import org.sonatype.aether.repository.RemoteRepository;
+import org.sonatype.aether.resolution.DependencyResolutionException;
+import org.sonatype.aether.util.artifact.DefaultArtifact;
+import org.sonatype.aether.util.artifact.JavaScopes;
+
+import com.jcabi.aether.Aether;
 
 /**
  * @author Karl-Heinz Marbaise <a
@@ -62,67 +55,14 @@ public class UpToDateMojo extends AbstractUpToDateMojo {
 
     private String localRepo;
 
-    public static RepositorySystem newRepositorySystem() {
-        /*
-         * Aether's components implement org.eclipse.aether.spi.locator.Service
-         * to ease manual wiring and using the prepopulated
-         * DefaultServiceLocator, we only need to register the repository
-         * connector and transporter factories.
-         */
-        DefaultServiceLocator locator = MavenRepositorySystemUtils.newServiceLocator();
-        locator.addService(RepositoryConnectorFactory.class, BasicRepositoryConnectorFactory.class);
-        locator.addService(TransporterFactory.class, FileTransporterFactory.class);
-        locator.addService(TransporterFactory.class, HttpTransporterFactory.class);
-
-        locator.setErrorHandler(new DefaultServiceLocator.ErrorHandler() {
-            @Override
-            public void serviceCreationFailed(Class<?> type, Class<?> impl, Throwable exception) {
-                exception.printStackTrace();
-            }
-        });
-
-        return locator.getService(RepositorySystem.class);
-    }
-
-    public static DefaultRepositorySystemSession newRepositorySystemSession(RepositorySystem system) {
-        DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
-
-        LocalRepository localRepo = new LocalRepository("target/local-repo");
-        session.setLocalRepositoryManager(system.newLocalRepositoryManager(session, localRepo));
-
-        // session.setTransferListener( new ConsoleTransferListener() );
-        // session.setRepositoryListener( new ConsoleRepositoryListener() );
-
-        // uncomment to generate dirty trees
-        // session.setDependencyGraphTransformer( null );
-
-        return session;
-    }
-
     public void execute() throws MojoExecutionException, MojoFailureException {
-
-        RepositorySystem newRepositorySystem = newRepositorySystem();
-        Artifact artifact = new DefaultArtifact("com.soebes.smpp:smpp:[0,)");
-
-        VersionRangeRequest rangeRequest = new VersionRangeRequest();
-        rangeRequest.setArtifact(artifact);
-        rangeRequest.setRepositories(remoteRepositories);
-
-        VersionRangeResult rangeResult;
+        Artifact artifact = new DefaultArtifact("junit", "junit-dep", "", "jar", "4.10");
+        File repo = this.repositorySystemSession.getLocalRepository().getBasedir();
         try {
-            rangeResult = repoSystem.resolveVersionRange(repositorySystemSession, rangeRequest);
-        } catch (VersionRangeResolutionException e) {
-            throw new MojoFailureException("Failed", e);
-        }
-
-        List<Version> versions = rangeResult.getVersions();
-
-        if (versions != null && !versions.isEmpty()) {
-            for (Version version : versions) {
-                getLog().info(" Item:" + version);
-            }
-            Version highestVersion = rangeResult.getHighestVersion();
-            getLog().info(" Highest available version:" + highestVersion.toString());
+            Collection<Artifact> deps = new Aether(this.mavenProject, repo).resolve(artifact, JavaScopes.COMPILE);
+        } catch (DependencyResolutionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
