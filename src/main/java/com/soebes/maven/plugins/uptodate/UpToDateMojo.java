@@ -30,12 +30,11 @@ import org.eclipse.aether.transport.http.HttpTransporterFactory;
 import org.eclipse.aether.version.Version;
 
 /**
- * @author Karl-Heinz Marbaise <a href="mailto:khmarbaise@soebes.de">khmarbaise@soebes.de</a>
+ * @author Karl-Heinz Marbaise <a
+ *         href="mailto:khmarbaise@soebes.de">khmarbaise@soebes.de</a>
  */
-@Mojo( name = "verify", defaultPhase = LifecyclePhase.VALIDATE, requiresProject = true, threadSafe = true )
-public class UpToDateMojo
-    extends AbstractUpToDateMojo
-{
+@Mojo(name = "verify", defaultPhase = LifecyclePhase.VALIDATE, requiresProject = true, threadSafe = true)
+public class UpToDateMojo extends AbstractUpToDateMojo {
 
     /**
      * The project currently being build.
@@ -51,53 +50,48 @@ public class UpToDateMojo
 
     @Component
     private RepositorySystem repoSystem;
-    
-    @Parameter(defaultValue="${repositorySystemSession}")
-    private RepositorySystemSession repositorySystemSession;
-    
 
-    @Parameter(defaultValue="${project.remoteProjectRepositories}", readonly=true)
+    @Parameter(defaultValue = "${repositorySystemSession}")
+    private RepositorySystemSession repositorySystemSession;
+
+    @Parameter(defaultValue = "${project.remoteProjectRepositories}", readonly = true)
     private List<RemoteRepository> remoteRepositories;
-    
-    
-    @Parameter(defaultValue="${project.remotePluginRepositories}", readonly=true)
+
+    @Parameter(defaultValue = "${project.remotePluginRepositories}", readonly = true)
     private List<RemoteRepository> remotePluginRepositories;
-    
+
     private String localRepo;
-    
-    public static RepositorySystem newRepositorySystem()
-    {
+
+    public static RepositorySystem newRepositorySystem() {
         /*
-         * Aether's components implement org.eclipse.aether.spi.locator.Service to ease manual wiring and using the
-         * prepopulated DefaultServiceLocator, we only need to register the repository connector and transporter
-         * factories.
+         * Aether's components implement org.eclipse.aether.spi.locator.Service
+         * to ease manual wiring and using the prepopulated
+         * DefaultServiceLocator, we only need to register the repository
+         * connector and transporter factories.
          */
         DefaultServiceLocator locator = MavenRepositorySystemUtils.newServiceLocator();
-        locator.addService( RepositoryConnectorFactory.class, BasicRepositoryConnectorFactory.class );
-        locator.addService( TransporterFactory.class, FileTransporterFactory.class );
-        locator.addService( TransporterFactory.class, HttpTransporterFactory.class );
+        locator.addService(RepositoryConnectorFactory.class, BasicRepositoryConnectorFactory.class);
+        locator.addService(TransporterFactory.class, FileTransporterFactory.class);
+        locator.addService(TransporterFactory.class, HttpTransporterFactory.class);
 
-        locator.setErrorHandler( new DefaultServiceLocator.ErrorHandler()
-        {
+        locator.setErrorHandler(new DefaultServiceLocator.ErrorHandler() {
             @Override
-            public void serviceCreationFailed( Class<?> type, Class<?> impl, Throwable exception )
-            {
+            public void serviceCreationFailed(Class<?> type, Class<?> impl, Throwable exception) {
                 exception.printStackTrace();
             }
-        } );
+        });
 
-        return locator.getService( RepositorySystem.class );
+        return locator.getService(RepositorySystem.class);
     }
 
-    public static DefaultRepositorySystemSession newRepositorySystemSession( RepositorySystem system )
-    {
+    public static DefaultRepositorySystemSession newRepositorySystemSession(RepositorySystem system) {
         DefaultRepositorySystemSession session = MavenRepositorySystemUtils.newSession();
 
-        LocalRepository localRepo = new LocalRepository( "target/local-repo" );
-        session.setLocalRepositoryManager( system.newLocalRepositoryManager( session, localRepo ) );
+        LocalRepository localRepo = new LocalRepository("target/local-repo");
+        session.setLocalRepositoryManager(system.newLocalRepositoryManager(session, localRepo));
 
-//        session.setTransferListener( new ConsoleTransferListener() );
-//        session.setRepositoryListener( new ConsoleRepositoryListener() );
+        // session.setTransferListener( new ConsoleTransferListener() );
+        // session.setRepositoryListener( new ConsoleRepositoryListener() );
 
         // uncomment to generate dirty trees
         // session.setDependencyGraphTransformer( null );
@@ -105,33 +99,27 @@ public class UpToDateMojo
         return session;
     }
 
-    public void execute()
-        throws MojoExecutionException, MojoFailureException
-    {
+    public void execute() throws MojoExecutionException, MojoFailureException {
 
-	RepositorySystem newRepositorySystem = newRepositorySystem();
-        Artifact artifact = new DefaultArtifact( "com.soebes.smpp:smpp:[0,)" );
+        RepositorySystem newRepositorySystem = newRepositorySystem();
+        Artifact artifact = new DefaultArtifact("com.soebes.smpp:smpp:[0,)");
 
         VersionRangeRequest rangeRequest = new VersionRangeRequest();
-        rangeRequest.setArtifact( artifact );
-        rangeRequest.setRepositories( remoteRepositories );
+        rangeRequest.setArtifact(artifact);
+        rangeRequest.setRepositories(remoteRepositories);
 
         VersionRangeResult rangeResult;
-        try
-        {
-            rangeResult = repoSystem.resolveVersionRange( repositorySystemSession, rangeRequest );
-        }
-        catch ( VersionRangeResolutionException e )
-        {
-            throw new MojoFailureException( "Failed", e );
+        try {
+            rangeResult = repoSystem.resolveVersionRange(repositorySystemSession, rangeRequest);
+        } catch (VersionRangeResolutionException e) {
+            throw new MojoFailureException("Failed", e);
         }
 
         List<Version> versions = rangeResult.getVersions();
 
-        if (versions !=null && !versions.isEmpty()) {
-            for ( Version version : versions )
-            {
-                getLog().info( " Item:" + version );
+        if (versions != null && !versions.isEmpty()) {
+            for (Version version : versions) {
+                getLog().info(" Item:" + version);
             }
             Version highestVersion = rangeResult.getHighestVersion();
             getLog().info(" Highest available version:" + highestVersion.toString());
