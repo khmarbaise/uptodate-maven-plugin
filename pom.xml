@@ -26,7 +26,7 @@
   <properties>
     <compilerSourceTarget>1.6</compilerSourceTarget>
 
-    <maven.version>3.1.0</maven.version>
+    <maven.version>3.0.5</maven.version>
 
     <maven-plugin-plugin.version>3.2</maven-plugin-plugin.version>
 
@@ -57,11 +57,11 @@
     <dependencies>
 
 
-      <dependency>
-        <groupId>com.jcabi</groupId>
-        <artifactId>jcabi-aether</artifactId>
-        <version>0.9</version>
-      </dependency>
+<!--       <dependency> -->
+<!--         <groupId>com.jcabi</groupId> -->
+<!--         <artifactId>jcabi-aether</artifactId> -->
+<!--         <version>0.9</version> -->
+<!--       </dependency> -->
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-artifact</artifactId>
@@ -245,10 +245,10 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>com.jcabi</groupId>
-      <artifactId>jcabi-aether</artifactId>
-    </dependency>
+<!--     <dependency> -->
+<!--       <groupId>com.jcabi</groupId> -->
+<!--       <artifactId>jcabi-aether</artifactId> -->
+<!--     </dependency> -->
 
     <dependency>
       <groupId>org.testng</groupId>
