@@ -28,7 +28,7 @@ public abstract class AbstractUpToDateMojo
     /**
      * The project currently being build.
      */
-    @Parameter( defaultValue = "${project}" )
+    @Parameter( defaultValue = "${project}", readonly = true )
     private MavenProject mavenProject;
 
     /**
@@ -40,10 +40,10 @@ public abstract class AbstractUpToDateMojo
     /**
      * The current Maven session.
      */
-    @Parameter( defaultValue = "${session}" )
+    @Parameter( defaultValue = "${session}", readonly = true  )
     private MavenSession mavenSession;
 
-    @Parameter( defaultValue = "${repositorySystemSession}" )
+    @Parameter( defaultValue = "${repositorySystemSession}", readonly = true  )
     private RepositorySystemSession repositorySystemSession;
 
     @Component
