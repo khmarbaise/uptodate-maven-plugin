@@ -27,12 +27,13 @@
     <compilerSourceTarget>1.6</compilerSourceTarget>
 
     <maven.version>3.0.5</maven.version>
+    <aetherVersion>0.9.0.M2</aetherVersion>
 
     <maven-plugin-plugin.version>3.2</maven-plugin-plugin.version>
 
     <gmaven-plugin.version>1.5</gmaven-plugin.version>
 
-    <!-- dependency versions -->
+	<!-- dependency versions -->
     <org.codehaus.groovy-groovy.version>1.8.4</org.codehaus.groovy-groovy.version>
     <org.codehaus.gmaven.runtime-gmaven-runtime-1.8>1.4</org.codehaus.gmaven.runtime-gmaven-runtime-1.8>
 
@@ -56,12 +57,6 @@
       <dependency>
         <groupId>org.apache.maven</groupId>
         <artifactId>maven-artifact</artifactId>
-        <version>${maven.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-compat</artifactId>
         <version>${maven.version}</version>
       </dependency>
 
@@ -100,6 +95,18 @@
         <version>3.2</version>
         <scope>provided</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.eclipse.aether</groupId>
+        <artifactId>aether-api</artifactId>
+        <version>${aetherVersion}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.aether</groupId>
+        <artifactId>aether-util</artifactId>
+        <version>${aetherVersion}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -107,6 +114,11 @@
   <build>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-invoker-plugin</artifactId>
+          <version>1.9</version>
+        </plugin>
         <plugin>
           <groupId>org.codehaus.gmaven</groupId>
           <artifactId>gmaven-plugin</artifactId>
@@ -258,20 +270,10 @@
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-compat</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-artifact</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven</groupId>
-      <artifactId>maven-plugin-api</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
@@ -283,6 +285,34 @@
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-model</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.maven</groupId>
+          <artifactId>maven-artifact</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.eclipse.sisu</groupId>
+          <artifactId>org.eclipse.sisu.plexus</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.aether</groupId>
+      <artifactId>aether-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.aether</groupId>
+      <artifactId>aether-util</artifactId>
     </dependency>
 
   </dependencies>
@@ -345,16 +375,18 @@
               <projectsDirectory>src/it</projectsDirectory>
               <showVersion>false</showVersion>
               <setupIncludes>
-                <setupInclude>setup/pom.xml</setupInclude>
+                <setupInclude>setup/**/pom.xml</setupInclude>
               </setupIncludes>
               <pomIncludes>
-                <pomInclude>*/pom.xml</pomInclude>
+                <pomInclude>parent-test/**/pom.xml</pomInclude>
+                <pomInclude>dependency-test/**/pom.xml</pomInclude>
               </pomIncludes>
               <preBuildHookScript>setup</preBuildHookScript>
               <postBuildHookScript>verify</postBuildHookScript>
               <settingsFile>src/it/settings.xml</settingsFile>
-              <!-- Currently working with more than one thread does not work, cause it is not guaranteed that the setup-config project
-                is build at first. see also http://jira.codehaus.org/browse/MINVOKER-147 -->
+              <!-- Currently working with more than one thread does not work, cause 
+                   it is not guaranteed that the setup-config project is build at first. see 
+                   also http://jira.codehaus.org/browse/MINVOKER-147 -->
               <parallelThreads>1</parallelThreads>
             </configuration>
             <executions>
@@ -373,11 +405,11 @@
                     <extraArtifact>junit:junit:4.6:jar</extraArtifact>
                     <extraArtifact>junit:junit:4.11:jar</extraArtifact>
                     <extraArtifact>org.testng:testng:6.8:jar</extraArtifact>
-                    <extraArtifact>org.apache.maven.surefire:surefire-junit4:2.15:jar</extraArtifact>
+                    <extraArtifact>org.apache.maven.surefire:surefire-junit4:2.17:jar</extraArtifact>
                     <extraArtifact>org.apache.maven.plugins:maven-compiler-plugin:3.1:maven-plugin</extraArtifact>
                     <extraArtifact>org.apache.maven.plugins:maven-install-plugin:2.4:maven-plugin</extraArtifact>
                     <extraArtifact>org.apache.maven.plugins:maven-clean-plugin:2.5:maven-plugin</extraArtifact>
-                    <extraArtifact>org.apache.maven.plugins:maven-surefire-plugin:2.15:maven-plugin</extraArtifact>
+                    <extraArtifact>org.apache.maven.plugins:maven-surefire-plugin:2.17:maven-plugin</extraArtifact>
                     <extraArtifact>org.apache.maven.plugins:maven-assembly-plugin:2.4:maven-plugin</extraArtifact>
                     <extraArtifact>org.apache.maven.plugins:maven-jar-plugin:2.4:maven-plugin</extraArtifact>
                     <extraArtifact>org.apache.maven.plugins:maven-war-plugin:2.3:maven-plugin</extraArtifact>
@@ -408,7 +440,7 @@
     </profile>
 
     <profile>
-      <!-- mvn -Pgithub site will deploy the site to github site. -->
+			<!-- mvn -Pgithub site will deploy the site to github site. -->
       <id>github</id>
       <activation>
         <activeByDefault>false</activeByDefault>
