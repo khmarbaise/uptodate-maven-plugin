@@ -22,6 +22,10 @@ public abstract class AbstractUpToDateMojo
     extends AbstractMojo
 {
 
+    /**
+     * You can skip the execution of uptodate plugin in cases
+     * where you might encounter a failure.
+     */
     @Parameter( defaultValue = "false", property = "uptodate.skip" )
     private boolean skip;
 
@@ -34,16 +38,19 @@ public abstract class AbstractUpToDateMojo
     /**
      * The project's remote repositories to use for the resolution.
      */
-    @Parameter( defaultValue = "${project.remoteProjectRepositories}" )
+    @Parameter( defaultValue = "${project.remoteProjectRepositories}", readonly = true )
     private List<RemoteRepository> remoteRepos;
 
     /**
      * The current Maven session.
      */
-    @Parameter( defaultValue = "${session}", readonly = true  )
+    @Parameter( defaultValue = "${session}", readonly = true )
     private MavenSession mavenSession;
 
-    @Parameter( defaultValue = "${repositorySystemSession}", readonly = true  )
+    /**
+     * The repositorySystemSession.
+     */
+    @Parameter( defaultValue = "${repositorySystemSession}", readonly = true )
     private RepositorySystemSession repositorySystemSession;
 
     @Component
@@ -84,8 +91,8 @@ public abstract class AbstractUpToDateMojo
         return repository;
     }
 
-    protected List<Version> getVersionsOfArtifact( String groupId, String artifactId, String version,
-                                                   String classifier, String extension )
+    protected List<Version> getVersionsOfArtifact( String groupId, String artifactId, String version, String classifier,
+                                                String extension )
         throws VersionRangeResolutionException
     {
         // Create a version range from our current version..
@@ -101,14 +108,13 @@ public abstract class AbstractUpToDateMojo
         rangeRequest.setArtifact( artifact );
         rangeRequest.setRepositories( remoteRepos );
 
-        VersionRangeResult rangeResult;
-        rangeResult = repository.resolveVersionRange( repositorySystemSession, rangeRequest );
+        VersionRangeResult rangeResult = repository.resolveVersionRange( repositorySystemSession, rangeRequest );
         List<Version> versions = rangeResult.getVersions();
 
         return versions;
     }
 
-    public String join( List<Version> versions )
+    protected String join( final List<Version> versions )
     {
         StringBuilder sb = new StringBuilder();
         for ( Iterator<Version> iterator = versions.iterator(); iterator.hasNext(); )

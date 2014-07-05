@@ -30,6 +30,7 @@ public class ParentMojo
 
         MavenProject parentProject = getMavenSession().getCurrentProject().getParent();
 
+//        getMavenProject().isExecutionRoot();
         if ( parentProject != null )
         {
 
@@ -38,12 +39,13 @@ public class ParentMojo
                 List<Version> versions =
                     getVersionsOfArtifact( parentProject.getGroupId(), parentProject.getArtifactId(),
                                            parentProject.getVersion(), null, "pom" );
-                getLog().debug( " Number of existing versions:" + versions.size() + " version:"+ join( versions ) );
+                getLog().debug( " Number of existing versions:" + versions.size() + " version:" + join( versions ) );
 
                 if ( versions.size() > 1 )
                 {
                     Version newest = versions.get( versions.size() - 1 );
-                    throw new MojoExecutionException( "There is a more up-to-date version ( " + newest + " ) of the parent available." );
+                    throw new MojoExecutionException( "There is a more up-to-date version ( " + newest
+                        + " ) of the parent available." );
                 }
             }
             catch ( VersionRangeResolutionException e )

@@ -33,17 +33,16 @@ public class DependencyMojo
             List<Dependency> dependencies = getMavenProject().getDependencies();
             for ( Dependency dependency : dependencies )
             {
+                String id = dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getVersion();
                 List<Version> versions =
                     getVersionsOfArtifact( dependency.getGroupId(), dependency.getArtifactId(),
                                            dependency.getVersion(), dependency.getClassifier(), dependency.getType() );
 
-                getLog().debug( " Number of existing versions:" + versions.size() + " version:" + join( versions ) );
+                getLog().debug( "Dependency: " + id + " Number of existing versions:" + versions.size() + " version:" + join( versions ) );
 
                 if ( versions.size() > 1 )
                 {
                     Version newest = versions.get( versions.size() - 1 );
-                    String id =
-                        dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getVersion();
                     throw new MojoExecutionException( "There is a more up-to-date version ( " + newest
                         + " ) of the dependency " + id + " available." );
                 }
