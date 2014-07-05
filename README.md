@@ -2,8 +2,8 @@ UpToDate-Maven-Plugin
 =====================
 
 [![Build Status](https://buildhive.cloudbees.com/job/khmarbaise/job/iterator-maven-plugin/badge/icon)](https://buildhive.cloudbees.com/job/khmarbaise/job/iterator-maven-plugin/)
-License
 
+License
 -------
 [Apache License, Version 2.0, January 2004](http://www.apache.org/licenses/)
 
