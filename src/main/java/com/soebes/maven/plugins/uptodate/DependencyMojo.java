@@ -38,7 +38,7 @@ public class DependencyMojo
             {
                 String id = dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getVersion();
                 List<Version> versions =
-                    getVersionsOfArtifact( dependency.getGroupId(), dependency.getArtifactId(),
+                    getNewerVersionsOfArtifact( dependency.getGroupId(), dependency.getArtifactId(),
                                            dependency.getVersion(), dependency.getClassifier(), dependency.getType() );
 
                 getLog().debug( "Dependency: " + id + " Number of existing versions:" + versions.size() + " version:" + join( versions ) );

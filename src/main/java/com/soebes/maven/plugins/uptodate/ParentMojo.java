@@ -40,7 +40,7 @@ public class ParentMojo
             {
                 String id = parentProject.getGroupId() + ":" + parentProject.getArtifactId() + ":" + parentProject.getVersion();
                 List<Version> versions =
-                    getVersionsOfArtifact( parentProject.getGroupId(), parentProject.getArtifactId(),
+                    getNewerVersionsOfArtifact( parentProject.getGroupId(), parentProject.getArtifactId(),
                                            parentProject.getVersion(), null, "pom" );
                 getLog().debug( id + " existing versions:" + versions.size() + " version:" + join( versions ) );
 

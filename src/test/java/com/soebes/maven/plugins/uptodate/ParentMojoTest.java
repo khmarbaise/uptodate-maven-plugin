@@ -39,7 +39,7 @@ public class ParentMojoTest
         createProjectWithParent( mojo );
 
         List<Version> versionsList = createVersionList( "1.0" );
-        when( mojo.getVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
 
         doCallRealMethod().when( mojo ).execute();
         mojo.execute();
@@ -54,7 +54,7 @@ public class ParentMojoTest
         createProjectWithParent( mojo );
 
         List<Version> versionsList = createVersionList( "1.0", "1.1" );
-        when( mojo.getVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
 
         doCallRealMethod().when( mojo ).execute();
         mojo.execute();

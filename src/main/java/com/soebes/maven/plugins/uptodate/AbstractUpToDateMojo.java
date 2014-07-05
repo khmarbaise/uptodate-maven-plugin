@@ -91,7 +91,7 @@ public abstract class AbstractUpToDateMojo
         return repository;
     }
 
-    protected List<Version> getVersionsOfArtifact( String groupId, String artifactId, String version, String classifier,
+    protected List<Version> getNewerVersionsOfArtifact( String groupId, String artifactId, String version, String classifier,
                                                 String extension )
         throws VersionRangeResolutionException
     {

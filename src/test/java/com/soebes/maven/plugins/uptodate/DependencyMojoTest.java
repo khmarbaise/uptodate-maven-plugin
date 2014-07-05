@@ -30,7 +30,7 @@ public class DependencyMojoTest
 
         List<Version> versionsList = createVersionList( "1.0", "1.1" );
 
-        when( mojo.getVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
 
         MavenProject project = mock( MavenProject.class );
 
@@ -51,7 +51,7 @@ public class DependencyMojoTest
 
         List<Version> versionsList = createVersionList( "1.0", "1.1" );
 
-        when( mojo.getVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
 
         MavenProject project = mock( MavenProject.class );
 
@@ -84,7 +84,7 @@ public class DependencyMojoTest
         List<Dependency> dependencyList = Collections.list( dep1, dep2 );
         when( project.getDependencies() ).thenReturn( dependencyList );
 
-        when( mojo.getVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsListDep1,
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsListDep1,
                                                                                                                           versionsListDep2 );
         when( mojo.getMavenProject() ).thenReturn( project );
 
