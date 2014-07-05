@@ -380,6 +380,7 @@
               <pomIncludes>
                 <pomInclude>parent-test/fail/pom.xml</pomInclude>
                 <pomInclude>parent-test/good/pom.xml</pomInclude>
+                <pomInclude>parent-test/good-with-parent-check/pom.xml</pomInclude>
                 <pomInclude>parent-test/multi-module/pom.xml</pomInclude>
                 <pomInclude>dependency-test/**/pom.xml</pomInclude>
               </pomIncludes>

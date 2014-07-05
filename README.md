@@ -17,6 +17,9 @@ Sometime you have the situations like using a parent pom but you yould like to
 force the users in your company to use newer versions cause there had been changes
 which need for further development. This plugin can help in such situations.
 
+Parent Check
+------------
+
 The following pom snippet will show an example of a usual project which 
 is using a parent:
 
@@ -52,11 +55,13 @@ the parent is the newest version.
      </plugin>
 
 If it is not the newest version it will break the build.
+Furtunately you can skip that breaking by using the following
+property on command if you really need.
 
+    mvn -Duptodate.skip=true ...
 
-
-
-Force using the most up-to-date version of an artifact.
+Dependency Check
+----------------
 
 Default
   checking all dependencies of the current module if they are up-to-date.
