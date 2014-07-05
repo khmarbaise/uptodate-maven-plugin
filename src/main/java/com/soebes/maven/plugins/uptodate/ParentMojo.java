@@ -30,16 +30,16 @@ public class ParentMojo
 
         MavenProject parentProject = getMavenSession().getCurrentProject().getParent();
 
-//        getMavenProject().isExecutionRoot();
-        if ( parentProject != null )
+        if ( parentProject != null && getMavenProject().isExecutionRoot())
         {
 
             try
             {
+                String id = parentProject.getGroupId() + ":" + parentProject.getArtifactId() + ":" + parentProject.getVersion();
                 List<Version> versions =
                     getVersionsOfArtifact( parentProject.getGroupId(), parentProject.getArtifactId(),
                                            parentProject.getVersion(), null, "pom" );
-                getLog().debug( " Number of existing versions:" + versions.size() + " version:" + join( versions ) );
+                getLog().debug( id + " existing versions:" + versions.size() + " version:" + join( versions ) );
 
                 if ( versions.size() > 1 )
                 {

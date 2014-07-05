@@ -378,7 +378,9 @@
                 <setupInclude>setup/**/pom.xml</setupInclude>
               </setupIncludes>
               <pomIncludes>
-                <pomInclude>parent-test/**/pom.xml</pomInclude>
+                <pomInclude>parent-test/fail/pom.xml</pomInclude>
+                <pomInclude>parent-test/good/pom.xml</pomInclude>
+                <pomInclude>parent-test/multi-module/pom.xml</pomInclude>
                 <pomInclude>dependency-test/**/pom.xml</pomInclude>
               </pomIncludes>
               <preBuildHookScript>setup</preBuildHookScript>

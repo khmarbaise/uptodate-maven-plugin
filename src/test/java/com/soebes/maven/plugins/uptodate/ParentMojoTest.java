@@ -95,6 +95,8 @@ public class ParentMojoTest
         when( session.getCurrentProject() ).thenReturn( project );
         when( mojo.getMavenProject() ).thenReturn( project );
         when( mojo.getMavenSession() ).thenReturn( session );
+        
+        when (project.isExecutionRoot()).thenReturn( true );
         return project;
     }
 

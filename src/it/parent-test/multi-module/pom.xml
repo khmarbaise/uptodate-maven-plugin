@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.soebes.maven.plugins.test.integration</groupId>
     <artifactId>parent</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
   </parent>
 
   <groupId>org.test.parent</groupId>
@@ -14,12 +14,29 @@
 
   <packaging>pom</packaging>
 
-  <name>Packaging Test</name>
+  <name>multi module test</name>
 
   <modules>
     <module>module-1</module>
     <module>module-2</module>
-    <module>dist</module>
   </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>@project.groupId@</groupId>
+        <artifactId>@project.artifactId@</artifactId>
+        <version>@project.version@</version>
+        <executions>
+          <execution>
+            <id>validate-parent</id>
+            <goals>
+              <goal>parent</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
