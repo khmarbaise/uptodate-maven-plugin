@@ -11,6 +11,9 @@ import org.eclipse.aether.resolution.VersionRangeResolutionException;
 import org.eclipse.aether.version.Version;
 
 /**
+ * Will check the parent of your project and fail the
+ * build if the parent is not the newest available
+ * version of the parent.
  * @author Karl-Heinz Marbaise <a href="mailto:khmarbaise@soebes.de">khmarbaise@soebes.de</a>
  */
 @Mojo( name = "parent", defaultPhase = LifecyclePhase.VALIDATE, requiresProject = true, threadSafe = true )

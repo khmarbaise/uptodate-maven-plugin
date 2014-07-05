@@ -11,6 +11,9 @@ import org.eclipse.aether.resolution.VersionRangeResolutionException;
 import org.eclipse.aether.version.Version;
 
 /**
+ * Will check dependencies of your project
+ * and fail the build if they are not up-to-date.
+ * 
  * @author Karl-Heinz Marbaise <a href="mailto:khmarbaise@soebes.de">khmarbaise@soebes.de</a>
  */
 @Mojo( name = "dependency", defaultPhase = LifecyclePhase.VALIDATE, requiresProject = true, threadSafe = true )
