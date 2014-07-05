@@ -1,10 +1,59 @@
 UpToDate-Maven-Plugin
 =====================
 
+License
+-------
+[Apache License, Version 2.0, January 2004](http://www.apache.org/licenses/)
+
+
+Overview
+--------
+
 Force the use of the most up-to-date released version of a artifact.
 
-Basic and first idea is described in
-http://jira.codehaus.org/browse/MENFORCER-190
+[The Basic idea for this plugin was the discussion about the enforcer rule](http://jira.codehaus.org/browse/MENFORCER-190).
+
+Sometime you have the situations like using a parent pom but you yould like to
+force the users in your company to use newer versions cause there had been changes
+which need for further development. This plugin can help in such situations.
+
+The following pom snippet will show an example of a usual project which 
+is using a parent:
+
+    <parent>
+      <groupId>com.soebes.maven.plugins.test.integration</groupId>
+      <artifactId>parent</artifactId>
+      <version>0.2</version>
+    </parent>
+
+    <groupId>org.test.parent</groupId>
+    <artifactId>root</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+So basically no problem at all. But what happens if a new version 
+of that parent is released and you want to force people to use that
+new version? Simply you add the following definition to your project:
+
+So every time you try to build this plugin will check if
+the parent is the newest version. 
+
+     <plugin>
+       <groupId>com.soebes.maven.plugins</groupId>
+       <artifactId>uptodate-maven-plugin</artifactId>
+       <executions>
+         <execution>
+           <id>force-updrage</id>
+           <goals>
+             <goal>parent</goal>
+           </goals>
+           <phase>validate</phase>
+         </execution>
+       </executions>
+     </plugin>
+
+If it is not the newest version it will break the build.
+
+
 
 
 Force using the most up-to-date version of an artifact.
