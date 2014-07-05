@@ -9,12 +9,12 @@ License
 Overview
 --------
 
-Force the use of the most up-to-date released version of a artifact.
+Force the use of the most up-to-date released versions of an artifact.
 
 [The Basic idea for this plugin was the discussion about the enforcer rule](http://jira.codehaus.org/browse/MENFORCER-190).
 
-Sometime you have the situations like using a parent pom but you yould like to
-force the users in your company to use newer versions cause there had been changes
+Sometimes you have a situation like using a parent pom but you yould like to
+force the users in your company to use the newest version cause there had been changes
 which need for further development. This plugin can help in such situations.
 
 Parent Check
@@ -91,9 +91,9 @@ could use the parent goal:
      <artifactId>uptodate-maven-plugin</artifactId>
      <executions>
        <execution>
-         <id>HIER</id>
+         <id>check-dependencies</id>
          <goals>
-           <goal>parent</goal>
+           <goal>dependency</goal>
          </goals>
          <phase>validate</phase>
        </execution>
@@ -101,11 +101,5 @@ could use the parent goal:
    </plugin>
    ..
  </plugins>
-
-1. We could check parent
-
-2. We could check dependencies
-
-   We could check only particular dependency.
 
 

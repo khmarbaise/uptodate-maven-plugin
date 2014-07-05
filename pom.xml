@@ -33,10 +33,8 @@
 
     <gmaven-plugin.version>1.5</gmaven-plugin.version>
 
-	<!-- dependency versions -->
     <org.codehaus.groovy-groovy.version>1.8.4</org.codehaus.groovy-groovy.version>
     <org.codehaus.gmaven.runtime-gmaven-runtime-1.8>1.4</org.codehaus.gmaven.runtime-gmaven-runtime-1.8>
-
   </properties>
 
   <issueManagement>
@@ -114,6 +112,7 @@
   <build>
     <pluginManagement>
       <plugins>
+        <!-- Remove after upgrade to smpp parent 0.6.5 -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-invoker-plugin</artifactId>
@@ -244,6 +243,14 @@
           <releaseProfiles>run-its</releaseProfiles>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <version>1.1</version>
+        <configuration>
+          <scmBranch>gh-pages</scmBranch>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
@@ -316,6 +323,13 @@
     </dependency>
 
   </dependencies>
+
+  <distributionManagement>
+    <site>
+      <id>github</id>
+      <url>scm:git:git@github.com:khmarbaise/uptodate-maven-plugin.git</url>
+    </site>
+  </distributionManagement>
 
   <profiles>
     <profile>
