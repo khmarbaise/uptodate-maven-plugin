@@ -8,11 +8,11 @@
 
   <groupId>com.soebes.maven.plugins.test.integration</groupId>
   <artifactId>parent</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
 
   <packaging>pom</packaging>
 
-  <name>artifactor-maven-plugin</name>
+  <name>Parent 0.2</name>
   <url>http://www.soebes.de</url>
 
   <properties>

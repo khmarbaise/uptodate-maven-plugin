@@ -7,12 +7,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.soebes.maven.plugins.test.integration</groupId>
-  <artifactId>parent-with-uptodate</artifactId>
-  <version>0.3</version>
+  <artifactId>parent</artifactId>
+  <version>0.2</version>
 
   <packaging>pom</packaging>
 
-  <name>artifactor-maven-plugin</name>
+  <name>Parent 0.2</name>
   <url>http://www.soebes.de</url>
 
   <properties>
@@ -87,21 +87,5 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>@project.groupId@</groupId>
-        <artifactId>@project.artifactId@</artifactId>
-        <version>@project.version@</version>
-        <executions>
-          <execution>
-            <id>parent-check</id>
-            <goals>
-              <goal>parent</goal>
-            </goals>
-            <phase>validate</phase>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 </project>

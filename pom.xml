@@ -112,7 +112,7 @@
   <build>
     <pluginManagement>
       <plugins>
-        <!-- Remove after upgrade to smpp parent 0.6.5 -->
+        <!-- Can be removed if this is moved to smpp 0.6.5 -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-invoker-plugin</artifactId>
@@ -367,6 +367,28 @@
           </plugin>
 
           <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>mrm-maven-plugin</artifactId>
+            <version>1.0-beta-1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>start</goal>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <propertyName>repository.proxy.url</propertyName>
+              <repositories>
+                <mockRepo>
+                  <source>src/it-repo</source>
+                </mockRepo>
+                <proxyRepo/>
+              </repositories>
+            </configuration>
+          </plugin>
+          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-invoker-plugin</artifactId>
             <dependencies>
@@ -389,11 +411,7 @@
               <projectsDirectory>src/it</projectsDirectory>
               <showVersion>false</showVersion>
               <setupIncludes>
-                <setupInclude>setup/setup-01/pom.xml</setupInclude>
-                <setupInclude>setup/setup-02/pom.xml</setupInclude>
-                <setupInclude>setup/setup-03/pom.xml</setupInclude>
-                <setupInclude>setup/setup-deps-01/pom.xml</setupInclude>
-                <setupInclude>setup/setup-deps-02/pom.xml</setupInclude>
+                <setupInclude>setup-03/pom.xml</setupInclude>
               </setupIncludes>
               <pomIncludes>
                 <pomInclude>parent-test/fail/pom.xml</pomInclude>
@@ -409,6 +427,9 @@
                    it is not guaranteed that the setup-config project is build at first. see 
                    also http://jira.codehaus.org/browse/MINVOKER-147 -->
               <parallelThreads>1</parallelThreads>
+              <filterProperties>
+                <repository.proxy.url>${repository.proxy.url}</repository.proxy.url>
+              </filterProperties>
             </configuration>
             <executions>
               <execution>
@@ -454,7 +475,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-invoker-plugin</artifactId>
-            <version>${maven.invoker.version}</version>
+            <version>${maven-invoker-plugin.version}</version>
           </plugin>
         </plugins>
       </reporting>
