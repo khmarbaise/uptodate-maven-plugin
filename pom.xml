@@ -116,7 +116,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-invoker-plugin</artifactId>
-          <version>1.9</version>
+          <version>1.10-SNAPSHOT</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.gmaven</groupId>
@@ -388,16 +388,18 @@
               <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
               <projectsDirectory>src/it</projectsDirectory>
               <showVersion>false</showVersion>
+              <!--
               <setupIncludes>
                 <setupInclude>setup/pom.xml</setupInclude>
                 <setupInclude>setup/**/pom.xml</setupInclude>
               </setupIncludes>
+              -->
               <pomExcludes>
-                <pomExclude>pom/pom-01/pom.xml</pomExclude>
-                <pomExclude>pom/pom-02/pom.xml</pomExclude>
-                <pomExclude>pom/pom-03/pom.xml</pomExclude>
-                <pomExclude>pom/pom-deps-01/pom.xml</pomExclude>
-                <pomExclude>pom/pom-deps-02/pom.xml</pomExclude>
+                <pomExclude>setup/setup-01/pom.xml</pomExclude>
+                <pomExclude>setup/setup-02/pom.xml</pomExclude>
+                <pomExclude>setup/setup-03/pom.xml</pomExclude>
+                <pomExclude>setup/setup-deps-01/pom.xml</pomExclude>
+                <pomExclude>setup/setup-deps-02/pom.xml</pomExclude>
               </pomExcludes>
               <pomIncludes>
                 <pomInclude>parent-test/fail/pom.xml</pomInclude>
