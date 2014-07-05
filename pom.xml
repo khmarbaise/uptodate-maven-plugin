@@ -389,7 +389,11 @@
               <projectsDirectory>src/it</projectsDirectory>
               <showVersion>false</showVersion>
               <setupIncludes>
-                <setupInclude>setup/**/pom.xml</setupInclude>
+                <setupInclude>setup/setup-01/pom.xml</setupInclude>
+                <setupInclude>setup/setup-02/pom.xml</setupInclude>
+                <setupInclude>setup/setup-03/pom.xml</setupInclude>
+                <setupInclude>setup/setup-deps-01/pom.xml</setupInclude>
+                <setupInclude>setup/setup-deps-02/pom.xml</setupInclude>
               </setupIncludes>
               <pomIncludes>
                 <pomInclude>parent-test/fail/pom.xml</pomInclude>
