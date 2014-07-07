@@ -1,13 +1,12 @@
 package com.soebes.maven.plugins.uptodate;
 
-import java.util.List;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.resolution.VersionRangeResolutionException;
+import org.eclipse.aether.resolution.VersionRangeResult;
 import org.eclipse.aether.version.Version;
 
 /**
@@ -39,15 +38,15 @@ public class ParentMojo
             try
             {
                 String id = parentProject.getGroupId() + ":" + parentProject.getArtifactId() + ":" + parentProject.getVersion();
-                List<Version> versions =
+                VersionRangeResult versionRangeResult =
                     getNewerVersionsOfArtifact( parentProject.getGroupId(), parentProject.getArtifactId(),
                                            parentProject.getVersion(), null, "pom" );
-                getLog().debug( id + " existing versions:" + versions.size() + " version:" + join( versions ) );
+                getLog().debug( id + " existing versions:" + versionRangeResult.getVersions().size() + " version:" + join( versionRangeResult.getVersions() ) );
 
-                if ( versions.size() > 1 )
+                Version newestVersion = versionRangeResult.getHighestVersion();
+                if ( newestVersion.equals( parentProject.getVersion() ) )
                 {
-                    Version newest = versions.get( versions.size() - 1 );
-                    throw new MojoExecutionException( "There is a more up-to-date version ( " + newest
+                    throw new MojoExecutionException( "There is a more up-to-date version ( " + newestVersion
                         + " ) of the parent available." );
                 }
             }

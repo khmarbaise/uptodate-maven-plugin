@@ -8,6 +8,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.eclipse.aether.resolution.VersionRangeResolutionException;
+import org.eclipse.aether.resolution.VersionRangeResult;
 import org.eclipse.aether.version.Version;
 
 /**
@@ -37,16 +38,16 @@ public class DependencyMojo
             for ( Dependency dependency : dependencies )
             {
                 String id = dependency.getGroupId() + ":" + dependency.getArtifactId() + ":" + dependency.getVersion();
-                List<Version> versions =
+                VersionRangeResult versionRangeResult =
                     getNewerVersionsOfArtifact( dependency.getGroupId(), dependency.getArtifactId(),
                                            dependency.getVersion(), dependency.getClassifier(), dependency.getType() );
 
-                getLog().debug( "Dependency: " + id + " Number of existing versions:" + versions.size() + " version:" + join( versions ) );
+                getLog().debug( "Dependency: " + id + " Number of existing versions:" + versionRangeResult.getVersions().size() + " version:" + join( versionRangeResult.getVersions() ) );
 
-                if ( versions.size() > 1 )
+                Version newestVersion = versionRangeResult.getHighestVersion();
+                if ( newestVersion.equals( dependency.getVersion() ) )
                 {
-                    Version newest = versions.get( versions.size() - 1 );
-                    throw new MojoExecutionException( "There is a more up-to-date version ( " + newest
+                    throw new MojoExecutionException( "There is a more up-to-date version ( " + newestVersion
                         + " ) of the dependency " + id + " available." );
                 }
             }

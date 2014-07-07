@@ -13,6 +13,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.resolution.VersionRangeResolutionException;
+import org.eclipse.aether.resolution.VersionRangeResult;
 import org.eclipse.aether.version.Version;
 import org.fest.util.Collections;
 import org.testng.annotations.Test;
@@ -29,8 +30,11 @@ public class DependencyMojoTest
         when( mojo.getLog() ).thenReturn( mock( Log.class ) );
 
         List<Version> versionsList = createVersionList( "1.0", "1.1" );
+        VersionRangeResult versionRangeResult = mock (VersionRangeResult.class);
+        when (versionRangeResult.getVersions()).thenReturn( versionsList );
+//        doCallRealMethod().when( versionRangeResult ).equals( arg0 );
 
-        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionRangeResult );
 
         MavenProject project = mock( MavenProject.class );
 
@@ -50,8 +54,10 @@ public class DependencyMojoTest
         when( mojo.getLog() ).thenReturn( mock( Log.class ) );
 
         List<Version> versionsList = createVersionList( "1.0", "1.1" );
+        VersionRangeResult versionRangeResult = mock (VersionRangeResult.class);
+        when (versionRangeResult.getVersions()).thenReturn( versionsList );
 
-        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionRangeResult );
 
         MavenProject project = mock( MavenProject.class );
 
@@ -84,8 +90,10 @@ public class DependencyMojoTest
         List<Dependency> dependencyList = Collections.list( dep1, dep2 );
         when( project.getDependencies() ).thenReturn( dependencyList );
 
-        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsListDep1,
-                                                                                                                          versionsListDep2 );
+        VersionRangeResult versionRangeResult = mock (VersionRangeResult.class);
+        when (versionRangeResult.getVersions()).thenReturn( versionsListDep1, versionsListDep2 );
+
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionRangeResult );
         when( mojo.getMavenProject() ).thenReturn( project );
 
         doCallRealMethod().when( mojo ).execute();

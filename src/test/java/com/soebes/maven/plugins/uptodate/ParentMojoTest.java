@@ -13,6 +13,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.aether.resolution.VersionRangeResolutionException;
+import org.eclipse.aether.resolution.VersionRangeResult;
 import org.eclipse.aether.version.Version;
 import org.testng.annotations.Test;
 
@@ -39,7 +40,11 @@ public class ParentMojoTest
         createProjectWithParent( mojo );
 
         List<Version> versionsList = createVersionList( "1.0" );
-        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+
+        VersionRangeResult versionRangeResult = mock (VersionRangeResult.class);
+        when (versionRangeResult.getVersions()).thenReturn( versionsList );
+
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionRangeResult );
 
         doCallRealMethod().when( mojo ).execute();
         mojo.execute();
@@ -54,7 +59,10 @@ public class ParentMojoTest
         createProjectWithParent( mojo );
 
         List<Version> versionsList = createVersionList( "1.0", "1.1" );
-        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionsList );
+        VersionRangeResult versionRangeResult = mock (VersionRangeResult.class);
+        when (versionRangeResult.getVersions()).thenReturn( versionsList );
+
+        when( mojo.getNewerVersionsOfArtifact( anyString(), anyString(), anyString(), anyString(), anyString() ) ).thenReturn( versionRangeResult );
 
         doCallRealMethod().when( mojo ).execute();
         mojo.execute();

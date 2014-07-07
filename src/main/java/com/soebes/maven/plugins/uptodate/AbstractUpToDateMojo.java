@@ -91,7 +91,7 @@ public abstract class AbstractUpToDateMojo
         return repository;
     }
 
-    protected List<Version> getNewerVersionsOfArtifact( String groupId, String artifactId, String version, String classifier,
+    protected VersionRangeResult getNewerVersionsOfArtifact( String groupId, String artifactId, String version, String classifier,
                                                 String extension )
         throws VersionRangeResolutionException
     {
@@ -108,10 +108,7 @@ public abstract class AbstractUpToDateMojo
         rangeRequest.setArtifact( artifact );
         rangeRequest.setRepositories( remoteRepos );
 
-        VersionRangeResult rangeResult = repository.resolveVersionRange( repositorySystemSession, rangeRequest );
-        List<Version> versions = rangeResult.getVersions();
-
-        return versions;
+        return repository.resolveVersionRange( repositorySystemSession, rangeRequest );
     }
 
     protected String join( final List<Version> versions )
