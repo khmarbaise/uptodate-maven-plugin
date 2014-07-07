@@ -26,7 +26,8 @@
 
 UpToDate Maven Plugin
 
-  The uptodate maven plugin is intended to keep your dependencies and your parent up-to-date.
+  The uptodate maven plugin is intended to check your dependencies and your parent if they are using the 
+  most recent version.
 
 * Goals Overview
 
@@ -43,7 +44,7 @@ UpToDate Maven Plugin
   General instructions on how to use the Versions Plugin can be found on the {{{./usage.html}usage page}}. Some more
   specific use cases are described in the examples given below. 
 
-  In case you still have questions regarding the plugin's usage, please have a look at the {{{./faq.html}FAQ}} and feel
+  In case you still have questions regarding the plugin's usage, feel
   free to contact the {{{./mail-lists.html}user mailing list}}. The posts to the mailing list are archived and could
   already contain the answer to your question as part of an older thread. Hence, it is also worth browsing/searching
   the {{{./mail-lists.html}mail archive}}.
