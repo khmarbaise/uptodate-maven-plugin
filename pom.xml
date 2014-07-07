@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.soebes.smpp</groupId>
     <artifactId>smpp</artifactId>
-    <version>0.8.0</version>
+    <version>0.8.1-SNAPSHOT</version>
   </parent>
 
   <groupId>com.soebes.maven.plugins</groupId>
@@ -32,8 +32,6 @@
 
     <gmaven-plugin.version>1.5</gmaven-plugin.version>
 
-    <org.codehaus.groovy-groovy.version>1.8.4</org.codehaus.groovy-groovy.version>
-    <org.codehaus.gmaven.runtime-gmaven-runtime-1.8>1.4</org.codehaus.gmaven.runtime-gmaven-runtime-1.8>
   </properties>
 
   <issueManagement>
@@ -66,12 +64,12 @@
       <dependency>
         <groupId>org.codehaus.groovy</groupId>
         <artifactId>groovy</artifactId>
-        <version>${org.codehaus.groovy-groovy.version}</version>
+        <version>1.8.4</version>
       </dependency>
       <dependency>
         <groupId>org.codehaus.gmaven.runtime</groupId>
         <artifactId>gmaven-runtime-1.8</artifactId>
-        <version>${org.codehaus.gmaven.runtime-gmaven-runtime-1.8}</version>
+        <version>1.4</version>
       </dependency>
 
       <dependency>
@@ -119,10 +117,12 @@
             <dependency>
               <groupId>org.codehaus.groovy</groupId>
               <artifactId>groovy</artifactId>
+              <version>1.8.4</version>
             </dependency>
             <dependency>
               <groupId>org.codehaus.gmaven.runtime</groupId>
               <artifactId>gmaven-runtime-1.8</artifactId>
+              <version>1.4</version>
             </dependency>
           </dependencies>
         </plugin>
@@ -186,6 +186,26 @@
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-plugin-plugin</artifactId>
               <version>${maven-plugin-plugin.version}</version>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-invoker-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>versions-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -327,12 +347,12 @@
               <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy</artifactId>
-                <version>${org.codehaus.groovy-groovy.version}</version>
+                <version>1.8.4</version>
               </dependency>
               <dependency>
                 <groupId>org.codehaus.gmaven.runtime</groupId>
                 <artifactId>gmaven-runtime-1.8</artifactId>
-                <version>${org.codehaus.gmaven.runtime-gmaven-runtime-1.8}</version>
+                <version>1.4</version>
               </dependency>
             </dependencies>
             <configuration>
@@ -379,12 +399,12 @@
               <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy</artifactId>
-                <version>${org.codehaus.groovy-groovy.version}</version>
+                <version>1.8.4</version>
               </dependency>
               <dependency>
                 <groupId>org.codehaus.gmaven.runtime</groupId>
                 <artifactId>gmaven-runtime-1.8</artifactId>
-                <version>${org.codehaus.gmaven.runtime-gmaven-runtime-1.8}</version>
+                <version>1.4</version>
               </dependency>
             </dependencies>
             <configuration>
@@ -457,14 +477,6 @@
           </plugin>
         </plugins>
       </build>
-      <reporting>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-invoker-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </reporting>
     </profile>
 
     <profile>
