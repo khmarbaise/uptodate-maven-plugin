@@ -26,7 +26,7 @@
   <properties>
     <compilerSourceTarget>1.6</compilerSourceTarget>
 
-    <maven.version>3.0.5</maven.version>
+    <maven.version>3.1.1</maven.version>
     <aetherVersion>0.9.0.M2</aetherVersion>
 
     <maven-plugin-plugin.version>3.2</maven-plugin-plugin.version>
