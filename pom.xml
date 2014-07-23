@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.soebes.smpp</groupId>
     <artifactId>smpp</artifactId>
-    <version>0.6.4</version>
+    <version>0.6.5</version>
   </parent>
 
   <groupId>com.soebes.maven.plugins</groupId>
@@ -112,12 +112,6 @@
   <build>
     <pluginManagement>
       <plugins>
-        <!-- Can be removed if this is moved to smpp 0.6.5 -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-invoker-plugin</artifactId>
-          <version>1.9</version>
-        </plugin>
         <plugin>
           <groupId>org.codehaus.gmaven</groupId>
           <artifactId>gmaven-plugin</artifactId>
