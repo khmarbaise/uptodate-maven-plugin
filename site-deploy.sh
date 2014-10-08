@@ -1,2 +1,3 @@
 mvn clean
-mvn site site:stage scm-publish:publish-scm
+mvn site site:stage 
+mvn scm-publish:publish-scm
