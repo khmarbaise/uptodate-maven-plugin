@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -91,8 +92,8 @@ public abstract class AbstractUpToDateMojo
         return repository;
     }
 
-    protected List<Version> getNewerVersionsOfArtifact( String groupId, String artifactId, String version, String classifier,
-                                                String extension )
+    protected List<Version> getNewerVersionsOfArtifact( String groupId, String artifactId, String version,
+                                                        String classifier, String extension )
         throws VersionRangeResolutionException
     {
         // Create a version range from our current version..
@@ -127,6 +128,61 @@ public abstract class AbstractUpToDateMojo
             }
         }
         return sb.toString();
+    }
+
+    private String getArtifactIdentification( Dependency dependency )
+    {
+        return dependency.getGroupId() + ":" + dependency.getArtifactId();
+    }
+
+    protected Dependency getVersionFromDependencyManagement( Dependency dependency )
+    {
+        Dependency result = dependency;
+        if ( hasDependencyManagement() )
+        {
+            List<Dependency> depMgmtList = getMavenProject().getDependencyManagement().getDependencies();
+
+            String dependencyKey = getArtifactIdentification( dependency );
+            for ( Dependency item : depMgmtList )
+            {
+                String itemKey = getArtifactIdentification( item );
+                getLog().debug( "Checking " + getArtifactIdentification( item ) );
+                if ( dependencyKey.equals( itemKey ) )
+                {
+                    result = item;
+                }
+
+            }
+        }
+        else
+        {
+            getLog().error( "No dependency management" );
+            // What should we do?
+            // Fail!!!
+        }
+        return result;
+    }
+
+    protected Dependency getDependencyManagement( Dependency dependency )
+    {
+        if ( hasVersion( dependency ) )
+        {
+            return dependency;
+        }
+        else
+        {
+            return getVersionFromDependencyManagement( dependency );
+        }
+    }
+
+    protected boolean hasDependencyManagement()
+    {
+        return getMavenProject().getDependencyManagement() != null;
+    }
+
+    protected boolean hasVersion( Dependency dependency )
+    {
+        return (dependency.getVersion() != null) && !dependency.getVersion().isEmpty();
     }
 
 }

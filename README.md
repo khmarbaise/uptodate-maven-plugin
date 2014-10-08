@@ -11,9 +11,9 @@ Overview
 
 Force the use of the most up-to-date released versions of an artifact.
 
-[The Basic idea for this plugin was the discussion about the enforcer rule](http://jira.codehaus.org/browse/MENFORCER-190).
+[The Basic idea for this plugin was born based on the discussion about the enforcer rule](http://jira.codehaus.org/browse/MENFORCER-190).
 
-Sometimes you have a situation like using a parent pom but you yould like to
+Sometimes you have a situation like using a parent pom but you would like to
 force the users in your company to use the newest version cause there had been changes
 which need for further development. This plugin can help in such situations.
 
@@ -55,7 +55,7 @@ the parent is the newest version.
      </plugin>
 
 If it is not the newest version it will break the build.
-Furtunately you can skip that breaking by using the following
+Furtunate you can skip that breaking by using the following
 property on command if you really need.
 
     mvn -Duptodate.skip=true ...
@@ -70,11 +70,11 @@ Default
 Lets assume you have the following dependency in your pom:
 
 
-  <dependency>
-    <groupId>org.xyz.test</groupId>
-    <artifactId>the-artifact</artifact>
-    <version>1.3</version>
-  </dependency>
+    <dependency>
+      <groupId>org.xyz.test</groupId>  
+      <artifactId>the-artifact</artifact>
+      <version>1.3</version>
+    </dependency>
 
 Sometime you must be sure to use always the newest version which is available.
 
@@ -85,21 +85,21 @@ If you need to check the parent of a parent to be always uptodate you
 could use the parent goal:
 
 
- <plugins>
-   <plugin>
-     <groupId>com.soebes.maven.plugins</groupId>
-     <artifactId>uptodate-maven-plugin</artifactId>
-     <executions>
-       <execution>
-         <id>check-dependencies</id>
-         <goals>
-           <goal>dependency</goal>
-         </goals>
-         <phase>validate</phase>
-       </execution>
-     </executions>
-   </plugin>
-   ..
- </plugins>
+	 <plugins>
+	   <plugin>
+	     <groupId>com.soebes.maven.plugins</groupId>
+	     <artifactId>uptodate-maven-plugin</artifactId>
+	     <executions>
+	       <execution>
+	         <id>check-dependencies</id>
+	         <goals>
+	           <goal>dependency</goal>
+	         </goals>
+	         <phase>validate</phase>
+	       </execution>
+	     </executions>
+	   </plugin>
+	   ..
+	 </plugins>
 
 

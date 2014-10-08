@@ -25,6 +25,7 @@ public class TestBase
         when( dep.getGroupId() ).thenReturn( groupId );
         when( dep.getArtifactId() ).thenReturn( artifactId );
         when( dep.getVersion() ).thenReturn( version );
+
         return dep;
     }
 

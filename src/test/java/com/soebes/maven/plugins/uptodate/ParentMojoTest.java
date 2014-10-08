@@ -74,7 +74,6 @@ public class ParentMojoTest
         MavenProject project = createProject( mojo );
 
         when( project.getParent() ).thenReturn( null );
-
     }
 
     private void createProjectWithParent( ParentMojo mojo )
@@ -83,7 +82,6 @@ public class ParentMojoTest
 
         MavenProject parentProject = createParentProject();
         when( project.getParent() ).thenReturn( parentProject );
-
     }
 
     private MavenProject createProject( ParentMojo mojo )
@@ -95,8 +93,8 @@ public class ParentMojoTest
         when( session.getCurrentProject() ).thenReturn( project );
         when( mojo.getMavenProject() ).thenReturn( project );
         when( mojo.getMavenSession() ).thenReturn( session );
-        
-        when (project.isExecutionRoot()).thenReturn( true );
+
+        when( project.isExecutionRoot() ).thenReturn( true );
         return project;
     }
 
