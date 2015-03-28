@@ -21,11 +21,6 @@
   </prerequisites>
 
   <properties>
-    <!-- Can be removed if we update to 0.7.0 parent -->
-    <compilerSourceTarget>1.6</compilerSourceTarget>
-
-    <!-- Can be removed if we update to 0.7.0 parent -->
-    <maven.version>3.1.1</maven.version>
     <aetherVersion>1.0.0.v20140518</aetherVersion>
 
     <maven-plugin-plugin.version>3.3</maven-plugin-plugin.version>
