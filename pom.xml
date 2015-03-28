@@ -10,7 +10,7 @@
 
   <groupId>com.soebes.maven.plugins</groupId>
   <artifactId>uptodate-maven-plugin</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.2.0</version>
   <packaging>maven-plugin</packaging>
 
   <name>The Up-To-Date Maven Plugin.</name>
@@ -38,7 +38,7 @@
     <developerConnection>scm:git:git@github.com:khmarbaise/uptodate-maven-plugin.git</developerConnection>
     <connection>scm:git:git@github.com:khmarbaise/uptodate-maven-plugin.git</connection>
     <url>https://github.com/khmarbaise/uptodate-maven-plugin</url>
-    <tag>HEAD</tag>
+    <tag>uptodate-maven-plugin-0.2.0</tag>
   </scm>
 
   <dependencyManagement>
