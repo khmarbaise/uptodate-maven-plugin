@@ -15,9 +15,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.assertj.core.util.Lists;
 import org.eclipse.aether.resolution.VersionRangeResolutionException;
 import org.eclipse.aether.version.Version;
-import org.fest.util.Collections;
 import org.testng.annotations.Test;
 
 public class DependencyMojoTest
@@ -62,7 +62,7 @@ public class DependencyMojoTest
 
         Dependency dep1 = createMockDependency( "com.soebes.maven.plugins.uptodate", "dep-01", "1.0" );
 
-        List<Dependency> dependencyList = Collections.list( dep1 );
+        List<Dependency> dependencyList = Lists.newArrayList( dep1 );
         when( project.getDependencies() ).thenReturn( dependencyList );
 
         when( mojo.getMavenProject() ).thenReturn( project );
@@ -73,8 +73,6 @@ public class DependencyMojoTest
         doCallRealMethod().when( mojo ).execute();
         mojo.execute();
     }
-    
-    
 
     @Test( expectedExceptions = MojoExecutionException.class, expectedExceptionsMessageRegExp = "There is a more up-to-date version \\( 1\\.1 \\) of the dependency com.soebes.maven.plugins.uptodate:dep-01:1.0 available." )
     public void shouldFailCauseANewerVersionOfTheSecondDependencyExist()
@@ -93,7 +91,7 @@ public class DependencyMojoTest
         Dependency dep2 = createMockDependency( "com.soebes.maven.plugins.uptodate", "dep-02", "1.0" );
         List<Version> versionsListDep2 = createVersionList( "1.0", "1.1" );
 
-        List<Dependency> dependencyList = Collections.list( dep1, dep2 );
+        List<Dependency> dependencyList = Lists.newArrayList( dep1, dep2 );
         when( project.getDependencies() ).thenReturn( dependencyList );
 
         List<Version> versionsList = new ArrayList<Version>();

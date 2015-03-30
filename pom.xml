@@ -242,14 +242,6 @@
           <releaseProfiles>run-its</releaseProfiles>
         </configuration>
       </plugin>
-      <!-- could be removed if we update to smpp 0.7.0 -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-publish-plugin</artifactId>
-        <configuration>
-          <scmBranch>gh-pages</scmBranch>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
@@ -261,8 +253,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.easytesting</groupId>
-      <artifactId>fest-assert</artifactId>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
 
