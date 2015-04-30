@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugin.logging.Log;
 import org.eclipse.aether.version.Version;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeMethod;
@@ -30,6 +31,8 @@ public class AbstractUpToDateMojoTest
         {
             mojo = mock( AbstractUpToDateMojo.class, Mockito.CALLS_REAL_METHODS );
             mavenProject = mock( MavenProject.class );
+            // The following will suppress logging outputs during the unit tests.
+            when( mojo.getLog() ).thenReturn ( mock ( Log.class ) );
             when( mojo.getMavenProject() ).thenReturn( mavenProject );
         }
 
