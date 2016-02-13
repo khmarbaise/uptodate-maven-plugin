@@ -234,14 +234,6 @@
           </execution>
         </executions>
       </plugin>
-      <!-- could be removed if we update to smpp 0.7.0 -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <configuration>
-          <releaseProfiles>run-its</releaseProfiles>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
