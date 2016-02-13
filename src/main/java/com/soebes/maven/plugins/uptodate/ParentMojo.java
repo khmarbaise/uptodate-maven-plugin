@@ -53,7 +53,7 @@ public class ParentMojo
             }
             catch ( VersionRangeResolutionException e )
             {
-                getLog().error( "VersionRangeRosolutionException", e );
+                getLog().error( "VersionRangeResolutionException", e );
             }
         }
         else
