@@ -11,7 +11,7 @@ Overview
 
 Force the use of the most up-to-date released versions of an artifact.
 
-[The Basic idea for this plugin was born based on the discussion about the enforcer rule](http://jira.codehaus.org/browse/MENFORCER-190).
+[The Basic idea for this plugin was born based on the discussion about the enforcer rule](https://issues.apache.org/jira/browse/MENFORCER-190).
 
 Sometimes you have a situation like using a parent pom but you would like to
 force the users in your company to use the newest version cause there had been changes
