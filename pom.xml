@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.soebes.smpp</groupId>
     <artifactId>smpp</artifactId>
-    <version>1.2.0</version>
+    <version>4.0.0</version>
   </parent>
 
   <groupId>com.soebes.maven.plugins</groupId>
@@ -35,10 +35,9 @@
   </issueManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:khmarbaise/uptodate-maven-plugin.git</developerConnection>
-    <connection>scm:git:git@github.com:khmarbaise/uptodate-maven-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/khmarbaise/uptodate-maven-plugin.git</developerConnection>
+    <connection>scm:git:https://github.com/khmarbaise/uptodate-maven-plugin.git</connection>
     <url>https://github.com/khmarbaise/uptodate-maven-plugin</url>
-    <tag>HEAD</tag>
   </scm>
 
   <dependencyManagement>
