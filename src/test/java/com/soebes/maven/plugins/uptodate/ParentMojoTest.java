@@ -25,7 +25,6 @@ public class ParentMojoTest extends TestBase {
 		createProjectWithoutParent(mojo);
 		doCallRealMethod().when(mojo).execute();
 		mojo.execute();
-
 	}
 
 	@Test
@@ -40,7 +39,6 @@ public class ParentMojoTest extends TestBase {
 
 		doCallRealMethod().when(mojo).execute();
 		mojo.execute();
-
 	}
 
 	@Test(expectedExceptions = MojoExecutionException.class)
